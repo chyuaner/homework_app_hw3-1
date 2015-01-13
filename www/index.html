@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<!--
+    Copyright (c) 2012-2014 Adobe Systems Incorporated. All rights reserved.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <title>Hello World</title>
+    </head>
+    <body>
+        <div class="app">
+            <div id="input">
+                <label class="a-cm" for="number"></label>
+                <input type="text" id="input-num_a" class="form-control">+
+                <label class="b-cm" for="number"></label>
+                <input type="text" id="input-num_b" class="form-control">
+                <select id="choose">
+                    <option value="+">+</option>
+                    <option value="-">-</option>
+                    <option value="*">*</option>
+                    <option value="/">/</option>
+                </select>
+                <label class="c-cm" for="number"></label>
+                <input type="text" id="input-num_c" class="form-control">+
+                <label class="d-cm" for="number"></label>
+                <input type="text" id="input-num_d" class="form-control">
+                <input id="submit-cal" class="btn" type="button" value="提交">
+            </div>
+            
+            <div id="result"></div>
+        </div>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+            
+            function com() {
+                var a_text = document.getElementById("input-num_a");
+                var b_text = document.getElementById("input-num_b");
+                var c_text = document.getElementById("input-num_c");
+                var d_text = document.getElementById("input-num_d");
+                var a = parseFloat(a_text.value);
+                var b = parseFloat(b_text.value);
+                var c = parseFloat(c_text.value);
+                var d = parseFloat(d_text.value);
+                var choose_select = document.getElementById("choose");
+                var choose = choose_select.value;
+                
+                //計算
+                var up;
+                var down;
+                switch(choose) {
+                    case '+':
+                        up = (a*d + b*c) ;
+                        down = b*d;
+                        break;
+                    case '-':
+                        up = (a*d - b*c);
+                        down = b*d;
+                        break;
+                    case '*':
+                        up = a*c;
+                        down = b*d;
+                        break;
+                    case '/':
+                        up = a*d;
+                        down = b*c;
+                        break;
+                }
+                var result_area = document.getElementById("result");
+                var output_string = String( a+"/"+b +choose+ c+"/"+d +"="+up+"/"+down);
+                result_area.innerHTML = output_string;
+
+            }
+            
+            var cal_btn = document.getElementById("submit-cal");
+            cal_btn.onclick = com;
+        </script>
+    </body>
+</html>
